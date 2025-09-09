@@ -413,7 +413,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiReviewReview extends Struct.CollectionTypeSchema {
   collectionName: 'reviews';
   info: {
-    displayName: 'review';
+    displayName: 'Reviews';
     pluralName: 'reviews';
     singularName: 'review';
   };
