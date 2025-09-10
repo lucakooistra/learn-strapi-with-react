@@ -1,29 +1,41 @@
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/UseFetch";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client/react";
+
+const GET_REVIEW = gql`
+  query GetReview($documentId: ID!) {
+    review(documentId: $documentId) {
+      title
+      body
+      rating
+      documentId
+    }
+  }
+`;
 
 export default function ReviewDetails() {
   const { documentId } = useParams();
 
-  const { data, error, loading } = useFetch(
-    `http://localhost:1337/api/reviews/` + documentId
-  );
+  const { loading, error, data } = useQuery(GET_REVIEW, {
+    variables: { documentId: documentId },
+  });
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  if (error.length > 0 || data.error) {
+  if (error) {
     return <div>Error</div>;
   }
   console.log("data", data);
 
   return (
     <div className="review-card">
-      <div className="rating">{data.rating}</div>
-      <h2>{data.title}</h2>
+      <div className="rating">{data.review.rating}</div>
+      <h2>{data.review.title}</h2>
 
       <small>console log</small>
 
-      <p>{data.body[0].children[0].text}</p>
+      <p>{data.review.body[0].children[0].text}</p>
     </div>
   );
 }
