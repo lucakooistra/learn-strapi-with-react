@@ -6,7 +6,6 @@ export default function Homepage() {
     "http://localhost:1337/api/reviews"
   );
 
-  console.log("data", data);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -25,7 +24,7 @@ export default function Homepage() {
 
           <p>{review.body[0].children[0].text.substring(0, 200)}...</p>
 
-          <Link to={`/details/${review.id}`}>Read More</Link>
+          <Link to={`/details/${review.documentId}`}>Read More</Link>
         </div>
       ))}
     </div>
