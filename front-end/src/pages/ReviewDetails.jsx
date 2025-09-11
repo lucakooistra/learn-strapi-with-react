@@ -9,6 +9,10 @@ const GET_REVIEW = gql`
       body
       rating
       documentId
+      categories {
+        name
+        documentId
+      }
     }
   }
 `;
@@ -33,7 +37,9 @@ export default function ReviewDetails() {
       <div className="rating">{data.review.rating}</div>
       <h2>{data.review.title}</h2>
 
-      <small>console log</small>
+      {data.review.categories.map((category) => (
+        <small key={category.documentId}>{category.name} </small>
+      ))}
 
       <p>{data.review.body[0].children[0].text}</p>
     </div>

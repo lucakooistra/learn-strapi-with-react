@@ -9,6 +9,10 @@ const GET_REVIEWS = gql`
       title
       body
       rating
+      categories {
+        name
+        documentId
+      }
     }
   }
 `;
@@ -27,7 +31,9 @@ export default function Homepage() {
           <div className="rating">{review.rating}</div>
           <h2>{review.title}</h2>
 
-          <small>console log</small>
+          {review.categories.map((category) => (
+            <small key={category.documentId}>{category.name} </small>
+          ))}
 
           <p>{review.body[0].children[0].text.substring(0, 200)}...</p>
 
